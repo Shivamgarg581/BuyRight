@@ -50,3 +50,25 @@ Never merge these into one unlabeled number.
 Add Supabase (or another backend) for users, products, markets, price records, local submissions, verification/moderation, statistics, alerts and audit logs.
 
 Then replace the demo data snapshot with a controlled data pipeline and keep the same UI contracts.
+
+## Advanced zero-cost layer
+
+The current front end is static and GitHub-Pages compatible. It includes:
+
+- Local AI-style intent routing for price, pack, basket and MRP questions; no paid AI key in the browser.
+- Locale-aware currency formatting with an optional daily FX lookup through Frankfurter; cached fallback keeps the UI usable offline.
+- Optional on-demand Open Food Facts barcode/product metadata lookup; no price is inferred from product metadata.
+- PWA manifest + service worker for resilient offline shell caching.
+- Runtime error/rejection recovery, network timeouts, cached fallbacks and reduced-motion support.
+- CSS/JS animation layer: reveal motion, particles, pointer glow, responsive transitions and interaction feedback.
+- Multilingual shell: English, Hindi, Spanish, French, German, Arabic, Bengali and Portuguese.
+- Multi-currency shell: INR, USD, EUR, GBP, AED, JPY, CAD, AUD, CHF, CNY, SGD, BDT, BRL and ZAR.
+- No affiliate placements, promoted products or seller-ranking incentives in the current UI.
+
+## Live data principle
+
+The price engine must keep **official reference prices**, **wholesale/mandi context**, and **local/community observations** as separate source classes. Local prices should only be labeled live when they come from a timestamped, verified observation or an approved feed.
+
+## Free / zero-budget choices
+
+GitHub Pages is the hosting layer. Static app assets require no server bill. Frankfurter exposes exchange-rate data without an API key, and Open Food Facts provides product metadata by barcode, with documented read limits. These are optional features and have timeouts/fallbacks. No paid dependency is required for the core price tools.
