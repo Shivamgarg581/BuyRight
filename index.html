@@ -4,16 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>BuyRight — Know the price before you buy</title>
 <meta name="description" content="Check prices, compare unit costs, find buying problems, estimate baskets and spot overcharging.">
-<style>
-:root{--bg:#f6f8f5;--card:#fff;--text:#162018;--muted:#667268;--line:#dfe6df;--brand:#1c7c54;--brand2:#14563b;--good:#087443;--bad:#b42318;--warn:#9a6700;--shadow:0 12px 32px rgba(24,48,32,.08)}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}button,input,select{font:inherit}button{cursor:pointer}.wrap{max-width:1180px;margin:auto;padding:0 18px}
-header{position:sticky;top:0;z-index:20;background:rgba(246,248,245,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.nav{height:68px;display:flex;align-items:center;gap:12px}.logo{font-size:21px;font-weight:800;color:var(--brand)}.tag{font-size:12px;color:var(--muted)}nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}nav button{border:0;background:transparent;padding:8px 10px;color:#425047;border-radius:9px}nav button:hover,nav button.active{background:#e7f0e8;color:var(--brand2)}.menu{display:none}
-main{padding:34px 0 60px}.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:stretch}.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}.hero-main{padding:42px}.eyebrow{display:inline-flex;gap:8px;align-items:center;padding:7px 10px;border-radius:999px;background:#e7f4eb;color:var(--brand2);font-weight:700;font-size:12px}.hero h1{font-size:50px;line-height:1.03;margin:18px 0 14px;letter-spacing:-2px}.hero p{font-size:18px;color:var(--muted);max-width:700px}.search{display:flex;gap:8px;margin-top:24px}.search input{flex:1;border:1px solid var(--line);padding:15px;border-radius:12px;outline:none}.primary{border:0;background:var(--brand);color:#fff;padding:13px 16px;border-radius:12px;font-weight:700}.secondary{border:1px solid var(--line);background:#fff;padding:12px 14px;border-radius:12px}.snapshot{padding:24px}.snapshot h3{margin:0 0 6px}.small{font-size:12px;color:var(--muted)}.price-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}.mini{border:1px solid var(--line);padding:13px;border-radius:13px}.mini strong{display:block;font-size:21px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:22px}.feature{padding:19px}.feature h3{margin:7px 0}.feature p{color:var(--muted);font-size:13px;margin:0}.section{margin-top:26px}.section h2{margin:0 0 10px}.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.tool{padding:17px}.tool h3{margin:7px 0}.pill{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:700;background:#eef2ef;color:#425047}.good{color:var(--good)}.bad{color:var(--bad)}.warn{color:var(--warn)}
-.page{display:none}.page.active{display:block}.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}.bar h2{margin:0}.formgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}.field input,.field select{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;background:#fff}.box{padding:22px}.result{margin-top:16px;padding:20px;border-radius:16px;border:1px solid var(--line);background:#fbfdfb}.big{font-size:40px;font-weight:800}.status{font-weight:800;font-size:16px}.statrow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.stat{padding:13px;background:#f4f7f4;border-radius:12px}.stat b{display:block;font-size:20px}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:11px;border-bottom:1px solid var(--line);text-align:left}.table th{font-size:12px;color:var(--muted)}.empty{padding:30px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px}.list{display:grid;gap:9px}.item{padding:14px;border:1px solid var(--line);border-radius:13px;background:#fff;display:flex;justify-content:space-between;gap:10px;align-items:center}.item button{margin-left:7px}.foot{margin-top:40px;padding:18px 0;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
-@media(max-width:900px){.hero{grid-template-columns:1fr}.cards,.tools{grid-template-columns:repeat(2,1fr)}.formgrid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:640px){nav{display:none}.menu{display:block;margin-left:auto;border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px}.nav.open nav{display:flex;position:absolute;left:12px;right:12px;top:62px;background:#fff;padding:10px;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}.hero-main{padding:26px}.hero h1{font-size:37px}.cards,.tools,.formgrid,.statrow{grid-template-columns:1fr}.table{display:block;overflow:auto;white-space:nowrap}.search{flex-direction:column}}
-</style>
+<link rel="stylesheet" href="./styles.css"><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg" type="image/svg+xml">
 </head>
 <body>
 <header><div class="wrap nav" id="nav"><div><div class="logo">BuyRight</div><div class="tag">Know the price before you buy.</div></div><button class="menu" onclick="toggleNav()">☰</button><nav id="navlinks">
@@ -62,68 +53,5 @@ Onion | 1 | 54.13</textarea><button class="primary" onclick="receiptCheck()">Che
 <div class="foot">BuyRight is an informational price-analysis tool. Official values are referenced to the source/date shown. Local/community numbers require verification. It is not a legal, financial or professional advisory service. <a target="_blank" href="https://enam.gov.in/">e-NAM</a> · <a target="_blank" href="https://agmarknet.gov.in/">AGMARKNET</a> · <a target="_blank" href="https://fcainfoweb.nic.in/Default.aspx">Consumer Affairs price monitoring</a></div>
 </main>
 
-<script>
-const DATA=[
-{name:"Sugar",cat:"Grocery",u:"kg",retail:56.70,wholesale:5000,aliases:["shakkar"]},
-{name:"Rice",cat:"Grocery",u:"kg",retail:46.43,wholesale:4159.92},
-{name:"Wheat",cat:"Grocery",u:"kg",retail:31.90,wholesale:2763.48},
-{name:"Atta",cat:"Grocery",u:"kg",retail:37.58,wholesale:3204.75},
-{name:"Gram Dal",cat:"Pulses",u:"kg",retail:88.41,wholesale:8150},
-{name:"Tur/Arhar Dal",cat:"Pulses",u:"kg",retail:125.18,wholesale:11200},
-{name:"Urad Dal",cat:"Pulses",u:"kg",retail:122.89,wholesale:11000},
-{name:"Moong Dal",cat:"Pulses",u:"kg",retail:112.05,wholesale:10000},
-{name:"Masoor Dal",cat:"Pulses",u:"kg",retail:90.34,wholesale:8200},
-{name:"Potato",cat:"Vegetables",u:"kg",retail:22.72,wholesale:1800},
-{name:"Onion",cat:"Vegetables",u:"kg",retail:54.13,wholesale:4200},
-{name:"Tomato",cat:"Vegetables",u:"kg",retail:39.49,wholesale:3100},
-{name:"Groundnut Oil",cat:"Oil",u:"litre",retail:210.04,wholesale:19500},
-{name:"Mustard Oil",cat:"Oil",u:"litre",retail:202.65,wholesale:18800},
-{name:"Soya Oil",cat:"Oil",u:"litre",retail:167.11,wholesale:15500},
-{name:"Sunflower Oil",cat:"Oil",u:"litre",retail:193.97,wholesale:18000},
-{name:"Palm Oil",cat:"Oil",u:"litre",retail:153.61,wholesale:14200},
-{name:"Milk",cat:"Dairy",u:"litre",retail:61.21},
-{name:"Salt",cat:"Grocery",u:"kg",retail:22.34},
-{name:"Tea",cat:"Grocery",u:"kg",retail:274.48}
-];
-const MODEL_MARKETS=[
-{name:"Central Market",km:1.8,m:1.02},
-{name:"Main Mandi",km:4.6,m:.92},
-{name:"Station Road",km:3.2,m:1.04},
-{name:"Neighbourhood Stores",km:.9,m:1.07}
-];
-let compares=[],basket=[];
-const $=id=>document.getElementById(id);
-const money=n=>"₹"+Number(n||0).toFixed(2);
-function product(q){q=(q||"").toLowerCase().trim();return DATA.find(x=>x.name.toLowerCase()===q||x.name.toLowerCase().includes(q)||x.aliases?.includes(q))||null}
-function norm(q,u){if(u==="g"||u==="ml")return q/1000;return q}
-function unitPrice(price,qty,u){let n=norm(Number(qty),u);return n?price/n:0}
-function go(name){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));$("page-"+name).classList.add("active");document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("active",x.dataset.page===name));window.scrollTo({top:0,behavior:"smooth"});if(name==="compare")renderCompare();if(name==="basket")renderBasket();if(name==="markets")renderMarkets();if(name==="report")renderReports();closeNav()}
-function toggleNav(){$("nav").classList.toggle("open")}function closeNav(){$("nav").classList.remove("open")}
-function heroCheck(){let s=$("heroSearch").value.trim();let m=s.match(/^(.+?)\s+₹\s*([\d.]+)/);if(m){$("cp").value=m[1];$("cprice").value=m[2]}else $("cp").value=s;go("check");if(m)checkPrice()}
-function checkPrice(){
-let p=product($("cp").value), price=+$("cprice").value, qty=+$("cqty").value||1,u=$("cunit").value;
-if(!p||!price){$("checkResult").innerHTML='<div class="result bad">Enter a supported product and a price.</div>';return}
-let entered=unitPrice(price,qty,u);let ref=p.retail;let pct=(entered-ref)/ref*100;let status=pct<=-5?"GOOD PRICE":pct>=5?"HIGH PRICE":"TYPICAL RANGE";let cls=status==="GOOD PRICE"?"good":status==="HIGH PRICE"?"bad":"warn";
-$("checkResult").innerHTML=`<div class="result"><div class="small">${p.name} • official retail reference</div><div class="big">${money(entered)}/${p.u}</div><div class="status ${cls}">${status}</div><div class="statrow"><div class="stat"><span>Reference</span><b>${money(ref)}</b></div><div class="stat"><span>Difference</span><b>${money(entered-ref)}</b></div><div class="stat"><span>Compared with ref</span><b>${pct.toFixed(1)}%</b></div></div><p class="small">Reference date: 24 Sep 2026. This does not establish the exact local market price. Compare with a verified local observation before traveling.</p><div class="bar"><button class="primary" onclick='prefillCompare("${p.name}")'>Compare</button><button class="secondary" onclick='setAlert("${p.name}")'>Set alert</button></div></div>`
-}
-function prefillCompare(n){addCompare(n);go("compare")}
-function setAlert(n){let target=prompt("Alert me when "+n+" is at or below ₹:");if(!target)return;let a=JSON.parse(localStorage.brA||"[]");a.push({product:n,target:+target,created:new Date().toISOString()});localStorage.brA=JSON.stringify(a);alert("Saved in this browser. A backend is needed for real notifications.");}
-function addCompare(n=""){compares.push({name:n||"Sugar",price:"",qty:1,unit:"kg"});renderCompare()}
-function renderCompare(){let el=$("compareRows");el.innerHTML=compares.map((r,i)=>`<div class="item"><div style="flex:1"><b>#${i+1}</b><div class="formgrid" style="grid-template-columns:1.2fr .8fr .7fr .8fr;margin-top:8px"><div class="field"><label>Product</label><input value="${r.name}" oninput="compares[${i}].name=this.value"></div><div class="field"><label>Price</label><input type="number" value="${r.price}" oninput="compares[${i}].price=this.value"></div><div class="field"><label>Qty</label><input type="number" value="${r.qty}" oninput="compares[${i}].qty=this.value"></div><div class="field"><label>Unit</label><select onchange="compares[${i}].unit=this.value"><option ${r.unit==="kg"?"selected":""}>kg</option><option ${r.unit==="g"?"selected":""}>g</option><option ${r.unit==="litre"?"selected":""}>litre</option><option ${r.unit==="ml"?"selected":""}>ml</option></select></div></div></div><button class="secondary" onclick="compares.splice(${i},1);renderCompare()">Remove</button></div>`).join("")||'<div class="empty">Add two or more products.</div>';if(compares.length)compareRun()}
-function compareRun(){let rows=compares.map(r=>{let p=product(r.name),up=unitPrice(+r.price,+r.qty,r.unit);return p&&r.price?{name:p.name,entered:up,ref:p.retail,diff:up-p.retail}:null}).filter(Boolean);$("compareResult").innerHTML=rows.length?'<div class="result"><table class="table"><thead><tr><th>Product</th><th>Your unit price</th><th>Reference</th><th>Difference</th></tr></thead><tbody>'+rows.map(x=>`<tr><td>${x.name}</td><td>${money(x.entered)}</td><td>${money(x.ref)}</td><td class="${x.diff<=0?"good":"bad"}">${money(x.diff)}</td></tr>`).join("")+'</tbody></table></div>':""}
-function calcUnit(){let r=unitPrice(+$("uprice").value,+$("uqty").value,$("uunit").value);$("ures").value=r?money(r):""}
-function addBasket(n="Sugar"){basket.push({name:n,qty:1});renderBasket()}
-function renderBasket(){let el=$("basketRows");el.innerHTML=basket.map((r,i)=>`<div class="item"><div style="flex:1"><b>${i+1}. ${r.name}</b><div class="formgrid" style="grid-template-columns:1fr .6fr;margin-top:8px"><div class="field"><label>Product</label><input value="${r.name}" oninput="basket[${i}].name=this.value"></div><div class="field"><label>Qty</label><input type="number" value="${r.qty}" oninput="basket[${i}].qty=+this.value||1"></div></div></div><button class="secondary" onclick="basket.splice(${i},1);renderBasket()">Remove</button></div>`).join("")||'<div class="empty">Add items to estimate a basket.</div>';if(basket.length)basketRun()}
-function basketRun(){let sums=MODEL_MARKETS.map(m=>{let subtotal=basket.reduce((s,r)=>{let p=product(r.name);return s+(p?p.retail*m.m*(+r.qty||1):0)},0);let travel=m.km*2.5;return {...m,total:subtotal+travel,subtotal,travel}});let best=sums.slice().sort((a,b)=>a.total-b.total)[0];$("basketResult").innerHTML='<div class="result"><table class="table"><thead><tr><th>Modeled market</th><th>Items</th><th>Travel estimate</th><th>Total estimate</th></tr></thead><tbody>'+sums.map(x=>`<tr><td>${x.name}<div class="small">${x.km} km</div></td><td>${money(x.subtotal)}</td><td>${money(x.travel)}</td><td><b>${money(x.total)}</b></td></tr>`).join("")+'</tbody></table><p class="small">Modeled values are placeholders for the comparison workflow; use verified local observations in production.</p><div class="status good">Lowest modeled total: ${best.name} at ${money(best.total)}</div></div>'}
-function renderMarkets(){let q=($("marketSearch").value||"").toLowerCase();let rows=DATA.filter(p=>p.name.toLowerCase().includes(q)).map(p=>`<tr><td><b>${p.name}</b><div class="small">${p.cat}</div></td><td>${money(p.retail)}/${p.u}</td><td>${money(p.retail*1.02)}/${p.u}</td><td>${money(p.retail*.92)}/${p.u}</td><td><button class="secondary" onclick='prefillCompare("${p.name}")'>Compare</button></td></tr>`).join("");$("marketTable").innerHTML=rows}
-function mrpCheck(){let m=+$("mrp").value,c=+$("charged").value;if(!m||!c)return;$("mrpResult").innerHTML=`<div class="result ${c>m?"bad":"good"}"><b>${c>m?"Charged above printed MRP":"Charged price is not above printed MRP"}</b><div class="small">Difference: ${money(c-m)}. Applicability depends on the product/package and relevant rules.</div></div>`}
-function costCheck(){let a=+$("baseCost").value||0,b=+$("extraCost").value||0;$("costResult").innerHTML=`<div class="result"><b>Real total: ${money(a+b)}</b><div class="small">Base ${money(a)} + extras ${money(b)}</div></div>`}
-function receiptCheck(){let lines=$("receipt").value.split(/\n+/).map(x=>x.split("|").map(y=>y.trim())).filter(x=>x.length===3);let total=0;for(const [n,q,p] of lines)total+=(+q||0)*(+p||0);$("receiptResult").innerHTML=`<div class="result"><b>Calculated total: ${money(total)}</b><div class="small">${lines.length} lines parsed. Compare against the bill total.</div></div>`}
-function shrinkCheck(){let op=unitPrice(+$("op").value,+$("oq").value,"kg"),np=unitPrice(+$("np").value,+$("nq").value,"kg");if(!op||!np)return;let ch=(np-op)/op*100;$("shrinkResult").innerHTML=`<div class="result ${ch>0?"bad":"good"}"><b>Effective unit-price change: ${ch.toFixed(1)}%</b><div class="small">Old unit price ${money(op)} • New unit price ${money(np)}</div></div>`}
-function saveReport(){let p=$("rp").value.trim(),price=+$("rprice").value,q=+$("rqty").value||1,u=$("runit").value,m=$("rmarket").value.trim();if(!p||!price){$("reportResult").innerHTML='<div class="result bad">Enter product and price.</div>';return}let a=JSON.parse(localStorage.brR||"[]");a.unshift({product:p,price,qty:q,unit:u,market:m,time:new Date().toISOString()});localStorage.brR=JSON.stringify(a.slice(0,50));$("reportResult").innerHTML='<div class="result good"><b>Saved as a community observation.</b><div class="small">It is not official and should be verified before publishing as market data.</div></div>';renderReports()}
-function renderReports(){let a=JSON.parse(localStorage.brR||"[]");$("savedReports").innerHTML=a.length?'<div class="list">'+a.map((x,i)=>`<div class="item"><div><b>${x.product}</b> • ${money(x.price)}/${x.unit}<div class="small">${x.market||"No market label"} • ${new Date(x.time).toLocaleString()}</div></div><button class="secondary" onclick="removeReport(${i})">Delete</button></div>`).join("")+'</div>':'<div class="empty">No saved local reports in this browser.</div>'}
-function removeReport(i){let a=JSON.parse(localStorage.brR||"[]");a.splice(i,1);localStorage.brR=JSON.stringify(a);renderReports()}
-function popular(){let items=["Sugar","Potato","Tomato","Onion","Rice","Mustard Oil"];$("popular").innerHTML=items.map(n=>{let p=product(n);return `<div class="item"><div><b>${n}</b><div class="small">Official retail reference</div></div><strong>${money(p.retail)}/${p.u}</strong><button class="secondary" onclick='prefillCompare("${n}")'>Compare</button></div>`}).join("")}
-popular();compares=[{name:"Sugar",price:56.7,qty:1,unit:"kg"},{name:"Rice",price:46.43,qty:1,unit:"kg"}];basket=[{name:"Sugar",qty:1},{name:"Rice",qty:2}];renderCompare();
-</script>
+<script src="./app.js"></script>
 </body></html>
