@@ -181,7 +181,7 @@ popular();compares=[{name:"Sugar",price:56.7,qty:1,unit:"kg"},{name:"Rice",price
     m.classList.add('show');setTimeout(()=>document.getElementById('brAsk').focus(),30);
   }
   function findKnown(text){const lo=text.toLowerCase();return Object.keys(KNOWN).sort((a,b)=>b.length-a.length).find(k=>lo.includes(k.toLowerCase()))}
-  function parseAmount(text){const m=text.match(/(?:₹|rs\\.?|usd|\\$|€|eur|£|gbp|aed)\\s*([0-9]+(?:\\.[0-9]+)?)/i);return m?Number(m[1]):null}
+  function parseAmount(text){const m=text.match(/(?:₹|rs\.?|usd|\$|€|eur|£|gbp|aed)\s*([0-9]+(?:\.[0-9]+)?)/i);return m?Number(m[1]):null}
   function routeCheck(product,amount,unit='kg'){
     location.hash='check';
     setTimeout(()=>{const p=document.getElementById('cp'),v=document.getElementById('cx'),q=document.getElementById('cq');if(p)p.value=product;if(v&&amount!=null)v.value=amount;if(q)q.value=1;const run=document.getElementById('run');if(run)run.click()},120);
@@ -190,9 +190,9 @@ popular();compares=[{name:"Sugar",price:56.7,qty:1,unit:"kg"},{name:"Rice",price
     const text=String(raw||'').trim(), out=document.getElementById('brAIOut');if(!out)return;
     if(!text){out.innerHTML='<div class="empty">Describe the price problem in a sentence.</div>';return}
     const lo=text.toLowerCase(),amount=parseAmount(text),known=findKnown(text);
-    if(/mrp|printed price|maximum retail/.test(lo)){out.innerHTML='<div class="callout"><b>MRP route</b><p>Use the MRP checker with the printed MRP and the amount actually charged. Applicability depends on the package/product and relevant rules.</p><button class="btn alt" onclick="location.hash=\\'tools\\'">Open MRP checker →</button></div>';return}
-    if(/basket|shopping list|grocer(y|ies)|whole trip/.test(lo)){out.innerHTML='<div class="callout"><b>Basket optimizer</b><p>Add the items and quantities. BuyRight compares the modeled basket totals and can later use verified local observations.</p><button class="btn alt" onclick="location.hash=\\'basket\\'">Open basket →</button></div>';return}
-    if(/compare|pack|cheaper/.test(lo)){out.innerHTML='<div class="callout"><b>Unit-price comparison</b><p>Enter the prices and quantities. The tool compares normalized unit cost instead of sticker price.</p><button class="btn alt" onclick="location.hash=\\'compare\\'">Open compare →</button></div>';return}
+    if(/mrp|printed price|maximum retail/.test(lo)){out.innerHTML='<div class="callout"><b>MRP route</b><p>Use the MRP checker with the printed MRP and the amount actually charged. Applicability depends on the package/product and relevant rules.</p><button class="btn alt" onclick="location.hash=\'tools\'">Open MRP checker →</button></div>';return}
+    if(/basket|shopping list|grocer(y|ies)|whole trip/.test(lo)){out.innerHTML='<div class="callout"><b>Basket optimizer</b><p>Add the items and quantities. BuyRight compares the modeled basket totals and can later use verified local observations.</p><button class="btn alt" onclick="location.hash=\'basket\'">Open basket →</button></div>';return}
+    if(/compare|pack|cheaper/.test(lo)){out.innerHTML='<div class="callout"><b>Unit-price comparison</b><p>Enter the prices and quantities. The tool compares normalized unit cost instead of sticker price.</p><button class="btn alt" onclick="location.hash=\'compare\'">Open compare →</button></div>';return}
     if(known&&amount!=null){
       const ref=KNOWN[known],pct=(amount-ref)/ref*100,st=pct<=-5?'GOOD PRICE':pct>=5?'HIGH PRICE':'TYPICAL RANGE',cls=pct<=-5?'good':pct>=5?'high':'normal';
       out.innerHTML='<div class="result"><div class="split"><div><div class="muted">'+safe(known)+' reference</div><div class="big">'+BRUI.format(amount)+'/kg</div></div><span class="status '+cls+'">'+st+'</span></div><div class="kpi"><div class="card"><strong>'+BRUI.format(ref)+'</strong><span class="muted small">reference</span></div><div class="card"><strong>'+pct.toFixed(1)+'%</strong><span class="muted small">vs reference</span></div></div><p class="small muted">This is a local decision aid using the visible official snapshot. It is not a live quote for every shop.</p><div class="actions"><button class="btn" id="brOpenCheck">Open full check</button></div></div>';
@@ -212,8 +212,8 @@ popular();compares=[{name:"Sugar",price:56.7,qty:1,unit:"kg"},{name:"Rice",price
     document.getElementById('brPhoto').onchange=e=>scanBarcode(e.target.files&&e.target.files[0]);
   }
   async function lookupBarcode(code){
-    code=String(code||'').replace(/\\D/g,'');const out=document.getElementById('brProductOut');if(!out)return;
-    if(!/^\\d{8,14}$/.test(code)){out.innerHTML='<div class="callout bad">Enter a valid-looking 8–14 digit barcode.</div>';return}
+    code=String(code||'').replace(/\D/g,'');const out=document.getElementById('brProductOut');if(!out)return;
+    if(!/^\d{8,14}$/.test(code)){out.innerHTML='<div class="callout bad">Enter a valid-looking 8–14 digit barcode.</div>';return}
     out.innerHTML='<div class="empty">Looking up product metadata…</div>';
     const c=new AbortController();const t=setTimeout(()=>c.abort(),6000);
     try{const res=await fetch('https://world.openfoodfacts.org/api/v2/product/'+encodeURIComponent(code)+'?fields=product_name,brands,quantity,categories,image_front_url',{signal:c.signal});clearTimeout(t);const d=await res.json();if(!d||d.status!==1){out.innerHTML='<div class="callout warn">Barcode not found in the public product database.</div>';return}const p=d.product||{};out.innerHTML='<div class="result"><div class="split"><div><b>'+safe(p.product_name||'Unnamed product')+'</b><div class="small muted">'+safe(p.brands||'')+'</div><div class="small">'+safe(p.quantity||'')+'</div></div>'+(p.image_front_url?'<img src="'+safe(p.image_front_url)+'" alt="" style="width:72px;height:72px;object-fit:cover;border-radius:12px">':'')+'</div><p class="small muted">Metadata source: Open Food Facts. This does not establish a local selling price.</p></div>'}catch(e){clearTimeout(t);out.innerHTML='<div class="callout warn">Lookup unavailable right now. You can still use the price tools offline.</div>'}
