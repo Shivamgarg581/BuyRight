@@ -1,0 +1,62 @@
+name: Local price report
+description: Submit a local market or shop price for verification.
+title: "[PRICE REPORT] "
+labels: ["price-report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Privacy:** Do not include phone numbers, home addresses, payment details, passwords, government IDs, or other private information. This issue is public. Only maintainer-verified observations are published by BuyRight.
+  - type: input
+    id: product
+    attributes:
+      label: Product
+      placeholder: Sugar
+    validations:
+      required: true
+  - type: input
+    id: price
+    attributes:
+      label: Price (INR)
+      placeholder: "52"
+    validations:
+      required: true
+  - type: input
+    id: quantity
+    attributes:
+      label: Quantity
+      placeholder: "1"
+    validations:
+      required: true
+  - type: dropdown
+    id: unit
+    attributes:
+      label: Unit
+      options:
+        - kg
+        - g
+        - litre
+        - ml
+        - piece
+    validations:
+      required: true
+  - type: input
+    id: market
+    attributes:
+      label: Market or shop label
+      placeholder: Main Market
+    validations:
+      required: true
+  - type: input
+    id: observed_at
+    attributes:
+      label: Observed date
+      description: Use YYYY-MM-DD.
+      placeholder: "2026-09-26"
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Optional quality, packaging or context. Do not include personal information.

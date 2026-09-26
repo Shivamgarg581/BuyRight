@@ -1,0 +1,51 @@
+name: Build verified community prices
+on:
+  schedule:
+    - cron: "50 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+  issues: read
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const owner = context.repo.owner, repo = context.repo.repo;
+            for (const name of ['price-report','verified-price']) {
+              try { await github.rest.issues.getLabel({owner, repo, name}); }
+              catch { await github.rest.issues.createLabel({owner, repo, name, color: name === 'verified-price' ? '1f883d' : '57606a'}); }
+            }
+            const issues = await github.paginate(github.rest.issues.listForRepo, {owner, repo, state:'all', labels:'verified-price', per_page:100});
+            const get = (body, label) => {
+              const re = new RegExp('### '+label+'\\s*\\n+([^\\n]+)', 'i');
+              return (body.match(re)?.[1] || '').trim();
+            };
+            const reports=[];
+            for (const issue of issues) {
+              if (issue.pull_request) continue;
+              const body=issue.body||'';
+              const product=get(body,'Product');
+              const price=Number(get(body,'Price \\(INR\\)'));
+              const quantity=Number(get(body,'Quantity'));
+              const unit=get(body,'Unit').toLowerCase();
+              const market=get(body,'Market or shop label');
+              const observed_at=get(body,'Observed date');
+              if(!product || !Number.isFinite(price) || price < 0 || !Number.isFinite(quantity) || quantity <= 0) continue;
+              if(!['kg','g','litre','ml','piece'].includes(unit)) continue;
+              if(!market || !/^\d{4}-\d{2}-\d{2}$/.test(observed_at)) continue;
+              const product_slug=product.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+              reports.push({issue_number:issue.number,issue_url:issue.html_url,product_name:product,product_slug,category:'Community',price,quantity,unit,market,observed_at,status:'verified',source:'GitHub verified community report'});
+            }
+            fs.writeFileSync('data/community-prices.json', JSON.stringify({generatedAt:new Date().toISOString(),reports}, null, 2)+'\n');
+      - name: Commit verified dataset
+        run: |
+          git config user.name "buyright-community"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/community-prices.json
+          git diff --cached --quiet || git commit -m "data: rebuild verified community prices"
+          git push

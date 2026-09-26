@@ -1,74 +1,76 @@
-# BuyRight — Price Intelligence Platform
+# BuyRight — evidence-aware price intelligence
 
-BuyRight helps people avoid overpaying by turning a seller quote into a buying decision:
+BuyRight is a GitHub Pages product for checking everyday prices, comparing true unit costs, understanding local evidence and preserving uncertainty instead of inventing shop quotes.
 
-- Check whether a price is below, around, or above a reference.
-- Normalize different pack sizes into a common unit.
-- Compare products and market context.
-- Build a basket and compare estimated totals.
-- Check MRP vs charged price for applicable packaged goods.
-- Check receipt arithmetic.
-- Check shrinkflation using old/current pack size and price.
-- Add hidden delivery/platform/other costs.
-- Save price alerts in the browser.
-- View product trend history and data-source context.
+## Launch data
 
-## Current deployment
+The shipped official snapshot is a dated 25 September 2026 Department of Consumer Affairs Price Monitoring System observation. The site displays the source and date next to the figures. It is a reference layer, not a claim about one particular shop.
 
-This repository is framework-free and works as a GitHub Pages site. The main experience is in index.html.
+Local market prices are not hard-coded. Community observations enter through a structured public GitHub Issue, remain in a review queue, and only appear on the site after a maintainer applies the verified-price label. The hourly workflow exports only those verified issues.
 
-The current site contains a clearly labeled 24 Sep 2026 snapshot of official Department of Consumer Affairs prices for monitored commodities. Local market values shown in the demo are illustrative model values and must not be presented as live shop quotes.
+Agricultural mandi context can be extended with e-NAM / AGMARKNET without collapsing those observations into the official retail layer.
 
-## Production data architecture
+## Product capabilities
 
-Use three data classes:
+- Official grocery/essential price references
+- Search across official products and verified local products
+- Entered-price checking from queries such as sugar 50
+- Deterministic true-unit-price comparison for kg, g, litre, ml and piece
+- Reference basket calculator
+- Market/price coverage view
+- Historical snapshot charting
+- Price-change pulse and a data-backed surprise finder
+- MRP comparison tool
+- Hidden-cost calculator
+- Receipt arithmetic checker
+- Shrinkflation/effective-unit-price checker
+- Community price-report workflow with human verification
+- Source/date/uncertainty visibility
+- Offline shell via service worker with last-known dataset fallback
+- No third-party runtime dependency in the public page
 
-1. Official consumer-price reference: Department of Consumer Affairs Price Monitoring System.
-2. Agricultural market reference: e-NAM / AGMARKNET for mandi/market context.
-3. Local observations: shop/user reports with timestamp, market, quantity, unit, source and verification state.
+## GitHub architecture
 
-Never merge these into one unlabeled number.
+main is the launch branch.
 
-## GitHub Pages
+- GitHub Pages: public frontend
+- index.html: complete application
+- data/official-prices.json: official source snapshot
+- data/community-prices.json: verified local observations only
+- data/price-history.json: dated official history
+- .github/workflows/sync-official-prices.yml: daily official sync
+- .github/workflows/sync-community.yml: hourly verified-community export
+- scripts/sync_official.py: fail-closed source parser
+- .github/ISSUE_TEMPLATE/price-report.yml: structured local observation intake
+- sw.js: resilient offline cache
 
-1. Push changes to main.
-2. GitHub → Settings → Pages.
-3. Select deployment from main and /root.
-4. Keep CNAME when a custom domain is used.
+No browser-side secret is required.
 
-## Safety / trust rules
+## Trust rules
 
-- Retail and wholesale values must be labeled separately.
-- Normalize quantity before comparison.
-- Preserve source + timestamp.
-- Mark user reports separately from official data.
-- Do not call an estimated local value a live quote.
-- Do not infer a legal violation from price alone; link the applicable official rule/channel.
+Official, community, derived and future AI-generated information are separate classes. The application does not label an estimate as a live shop quote. Missing evidence is displayed as unknown.
 
-## Next production layer
+All price calculations in the browser are deterministic. AI is not required for arithmetic, normalization or critical data decisions.
 
-Add Supabase (or another backend) for users, products, markets, price records, local submissions, verification/moderation, statistics, alerts and audit logs.
+## Security boundary
 
-Then replace the demo data snapshot with a controlled data pipeline and keep the same UI contracts.
+The supplied security brief is treated as the architecture baseline: defense in depth, least privilege, data provenance, poisoned-data resistance, privacy minimization, abuse controls, disaster recovery, observability and secure CI/CD. SECURITY.md maps the static launch to that baseline and identifies controls that require a backend before private accounts, payments or privileged APIs are introduced.
 
-## Advanced zero-cost layer
+## Run locally
 
-The current front end is static and GitHub-Pages compatible. It includes:
+Because the app is static, a local HTTP server is enough:
 
-- Local AI-style intent routing for price, pack, basket and MRP questions; no paid AI key in the browser.
-- Locale-aware currency formatting with an optional daily FX lookup through Frankfurter; cached fallback keeps the UI usable offline.
-- Optional on-demand Open Food Facts barcode/product metadata lookup; no price is inferred from product metadata.
-- PWA manifest + service worker for resilient offline shell caching.
-- Runtime error/rejection recovery, network timeouts, cached fallbacks and reduced-motion support.
-- CSS/JS animation layer: reveal motion, particles, pointer glow, responsive transitions and interaction feedback.
-- Multilingual shell: English, Hindi, Spanish, French, German, Arabic, Bengali and Portuguese.
-- Multi-currency shell: INR, USD, EUR, GBP, AED, JPY, CAD, AUD, CHF, CNY, SGD, BDT, BRL and ZAR.
-- No affiliate placements, promoted products or seller-ranking incentives in the current UI.
+python -m http.server 8080
 
-## Live data principle
+Then open http://localhost:8080.
 
-The price engine must keep **official reference prices**, **wholesale/mandi context**, and **local/community observations** as separate source classes. Local prices should only be labeled live when they come from a timestamped, verified observation or an approved feed.
+## Launch
 
-## Free / zero-budget choices
+1. Merge production-rebuild into main.
+2. Keep GitHub Pages configured for main + repository root.
+3. Confirm the custom CNAME is intentional.
+4. Run both Actions workflows manually once.
+5. Submit and verify a real local price observation.
+6. Protect main and enable repository security features.
 
-GitHub Pages is the hosting layer. Static app assets require no server bill. Frankfurter exposes exchange-rate data without an API key, and Open Food Facts provides product metadata by barcode, with documented read limits. These are optional features and have timeouts/fallbacks. No paid dependency is required for the core price tools.
+See LAUNCH_CHECKLIST.md for the release gate.
