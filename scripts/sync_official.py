@@ -16,7 +16,7 @@ r=requests.get(URL,headers=HEADERS,timeout=30)
 r.raise_for_status()
 soup=BeautifulSoup(r.text,'html.parser')
 body=' '.join(soup.get_text(' ',strip=True).split())
-m=re.search(r'As on\\s+(\\d{2}/\\d{2}/\\d{4})',body,re.I)
+m=re.search(r'As on\s+(\d{2}/\d{2}/\d{4})',body,re.I)
 if not m: raise SystemExit('Official source date not found; refusing to publish.')
 d,mo,y=m.group(1).split('/')
 observed=f'{y}-{mo}-{d}'
@@ -25,7 +25,7 @@ for table in soup.find_all('table'):
     text=table.get_text(' ',strip=True)
     parent=table.parent.get_text(' ',strip=True) if table.parent else ''
     scope=text+' '+parent
-    kind='retail' if re.search(r'Average\\s+Retail',scope,re.I) else ('wholesale' if re.search(r'Average\\s+Wholesale',scope,re.I) else None)
+    kind='retail' if re.search(r'Average\s+Retail',scope,re.I) else ('wholesale' if re.search(r'Average\s+Wholesale',scope,re.I) else None)
     if not kind: continue
     for tr in table.find_all('tr'):
         cells=[c.get_text(' ',strip=True) for c in tr.find_all(['th','td'])]
